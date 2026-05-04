@@ -16,7 +16,6 @@ coverage/
 *~
 client_projects/
 demo/
-apps/mobile/
 
 # Test artifacts
 test-results/
