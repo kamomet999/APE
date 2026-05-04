@@ -20,3 +20,6 @@ demo/
 # Test artifacts
 test-results/
 screenshots/
+
+# Harness engineering local state
+.harness/
