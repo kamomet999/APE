@@ -272,7 +272,7 @@ C:\Users\steam\Dev\Projects\APE\
 
 ---
 
-**GitHub リポジトリ**: https://github.com/taiki-horaguchi-alt/APE (Private)
+**GitHub リポジトリ**: https://github.com/kamomet999/APE (Private)
 
 **最後に実行したコマンド**:
 ```bash
