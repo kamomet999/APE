@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>APE — ノンタイトル ピッチ</title>
+<style>
+  :root {
+    --bg0: #0b1020;
+    --bg1: #0f1834;
+    --bg2: #16213e;
+    --accent: #4ecca3;
+    --accent2: #ffd369;
+    --muted: #93a4c9;
+    --text: #eef2ff;
+    --line: rgba(255,255,255,.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #000; color: var(--text); font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif; }
+  body { -webkit-font-smoothing: antialiased; }
+
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1200px 800px at 20% 10%, #1a2856 0%, transparent 60%),
+                radial-gradient(1000px 700px at 90% 90%, #122046 0%, transparent 55%),
+                linear-gradient(135deg, var(--bg0) 0%, var(--bg1) 100%);
+    padding: 96px 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide + .slide { margin-top: 24px; }
+
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .2em;
+    font-size: 28px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h1 { font-size: 110px; line-height: 1.05; margin: 0 0 32px; letter-spacing: -.01em; }
+  h2 { font-size: 72px; line-height: 1.1; margin: 0 0 28px; }
+  h3 { font-size: 44px; line-height: 1.2; margin: 0 0 18px; color: var(--accent2); }
+  p, li { font-size: 36px; line-height: 1.55; color: var(--text); }
+  .lead { font-size: 44px; color: var(--muted); line-height: 1.5; }
+
+  .accent { color: var(--accent); }
+  .yellow { color: var(--accent2); }
+  .muted { color: var(--muted); }
+
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+
+  .card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 40px;
+  }
+  .card .num {
+    display: inline-block;
+    background: var(--accent);
+    color: #0b1020;
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    text-align: center;
+    line-height: 56px;
+    font-weight: 800;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .card h3 { color: var(--accent2); font-size: 38px; margin-bottom: 14px; }
+  .card p { font-size: 28px; color: var(--muted); }
+
+  .footer {
+    position: absolute; left: 120px; right: 120px; bottom: 56px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: 24px;
+    border-top: 1px solid var(--line); padding-top: 24px;
+  }
+  .footer .brand { color: var(--accent); font-weight: 800; letter-spacing: .08em; }
+
+  /* Slide 1: Cover */
+  .cover h1 { font-size: 168px; letter-spacing: -.02em; }
+  .cover .tag {
+    display: inline-block; padding: 12px 28px; border-radius: 999px;
+    background: rgba(78,204,163,.15); color: var(--accent);
+    border: 1px solid rgba(78,204,163,.4);
+    font-weight: 700; font-size: 30px; margin-bottom: 36px;
+  }
+  .cover .sub { font-size: 52px; color: var(--text); margin-top: 16px; }
+  .cover .by { font-size: 28px; color: var(--muted); margin-top: 64px; }
+
+  /* Problem table */
+  table.problem { width: 100%; border-collapse: collapse; font-size: 32px; margin-top: 12px; }
+  table.problem th, table.problem td { text-align: left; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+  table.problem th { color: var(--accent); font-weight: 700; font-size: 30px; }
+  table.problem td.q { color: var(--accent2); font-weight: 700; width: 26%; }
+
+  /* Founder story */
+  .story blockquote {
+    border-left: 6px solid var(--accent);
+    padding: 8px 0 8px 32px;
+    margin: 0 0 24px 0;
+    font-size: 34px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .story .name { color: var(--muted); font-size: 26px; }
+
+  /* Big stat */
+  .stats { display: flex; gap: 48px; margin-top: 24px; }
+  .stat { flex: 1; }
+  .stat .v { font-size: 96px; color: var(--accent); font-weight: 800; line-height: 1; }
+  .stat .l { font-size: 26px; color: var(--muted); margin-top: 14px; }
+
+  /* compare table */
+  table.compare { width: 100%; border-collapse: collapse; font-size: 28px; }
+  table.compare th, table.compare td { padding: 22px 26px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.compare th { background: rgba(255,255,255,.05); color: var(--accent2); font-weight: 700; }
+  table.compare td.label { color: var(--muted); width: 22%; }
+  table.compare td.us { color: var(--accent); font-weight: 700; }
+
+  /* roadmap */
+  .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .phase {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--line);
+    border-radius: 20px; padding: 32px;
+  }
+  .phase .y { color: var(--accent); font-weight: 800; font-size: 28px; letter-spacing: .12em; }
+  .phase h4 { font-size: 32px; margin: 10px 0 16px; color: var(--accent2); }
+  .phase p { font-size: 24px; color: var(--muted); }
+
+  /* CTA */
+  .cta h1 { font-size: 140px; line-height: 1.05; }
+  .cta .pill { display: inline-block; padding: 14px 32px; border-radius: 999px;
+    background: var(--accent); color: #0b1020; font-weight: 800; font-size: 36px;
+    margin-top: 24px;
+  }
+  .cta .who { font-size: 32px; color: var(--muted); margin-top: 56px; }
+
+  /* Engine card big */
+  .engines { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 16px; }
+  .engine {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--line);
+    border-radius: 24px; padding: 36px;
+  }
+  .engine .icn { font-size: 64px; margin-bottom: 10px; }
+  .engine h3 { font-size: 36px; color: var(--accent); margin-bottom: 8px; }
+  .engine .name { font-size: 22px; color: var(--muted); letter-spacing: .12em; margin-bottom: 18px; }
+  .engine p { font-size: 26px; color: var(--text); line-height: 1.5; }
+
+  /* dots */
+  .dots { display: flex; gap: 12px; margin-bottom: 28px; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.18); }
+  .dot.on { background: var(--accent); }
+
+  /* highlight band */
+  .band {
+    background: linear-gradient(90deg, rgba(78,204,163,.18), rgba(78,204,163,0));
+    border-left: 8px solid var(--accent);
+    padding: 28px 36px; border-radius: 8px; margin-top: 28px;
+  }
+  .band p { font-size: 36px; color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- 01 COVER -->
+<section class="slide cover">
+  <div>
+    <div class="tag">起業家リアリティショー「ノンタイトル」エントリー</div>
+    <h1>農業は、<br><span class="accent">博打</span>じゃない。</h1>
+    <div class="sub">「何を作れば儲かるか」を<span class="yellow">物理とデータ</span>で導く<br>農業経営エンジン <strong class="accent">APE</strong></div>
+    <div class="by">Agri-Profit Engine ／ Founder: 洞口 太樹（Taiki Horaguchi）</div>
+  </div>
+  <div class="footer"><span class="brand">APE</span><span>01 / 12</span></div>
+</section>
+
+<!-- 02 PROBLEM -->
+<section class="slide">
+  <div class="eyebrow">PROBLEM</div>
+  <h2>農家を縛る、<span class="accent">3つの博打</span></h2>
+  <p class="lead">情熱だけでは、誰も食べていけない。新規就農の70%が5年で離農している。</p>
+  <table class="problem">
+    <tr><th>不確実性</th><th>現状</th><th>結果</th></tr>
+    <tr><td class="q">① 何を作る？</td><td>経験と勘・地域の慣習</td><td>土地に合わず育たない</td></tr>
+    <tr><td class="q">② いくらで売れる？</td><td>市場任せ・JA一択</td><td>豊作貧乏で利益ゼロ</td></tr>
+    <tr><td class="q">③ どこに売る？</td><td>近隣の需要が見えない</td><td>安値で買い叩かれる</td></tr>
+  </table>
+  <div class="band"><p>既存の農業アプリは、すべて<strong class="yellow">「作った後」</strong>のツール。<br><strong class="accent">「作る前」</strong>の意思決定を支援する人が、誰もいない。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>02 / 12</span></div>
+</section>
+
+<!-- 03 FOUNDER STORY -->
+<section class="slide story">
+  <div class="eyebrow">FOUNDER'S STORY</div>
+  <h2>「儲かる作物は何ですか？」<br><span class="muted">— 誰も答えられなかった。</span></h2>
+  <blockquote>
+    トマト農家に生まれ、椎茸・イチゴ・ネギ……何度も挑戦して、何度も失敗した。<br>
+    青果市場に勤めて気づいた。<strong class="yellow">JAの職員も、市場のベテランも、答えを持っていない。</strong><br>
+    「危険だからおすすめできない」「いつも通りの作物が一番」——そう流されて、農家は疲弊していく。
+  </blockquote>
+  <p class="lead">気候は変わる。市場も変わる。<br>なのに<span class="accent">「設備投資」と「過去の成功体験」</span>に縛られて、農家は作物を変えられない。</p>
+  <div class="band"><p>だから僕は、<strong class="accent">「未来のデータで経営を決める」</strong>世界をつくる。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>03 / 12</span></div>
+</section>
+
+<!-- 04 SOLUTION OVERVIEW -->
+<section class="slide">
+  <div class="eyebrow">SOLUTION</div>
+  <h2>APE = <span class="accent">3つの科学的エンジン</span></h2>
+  <p class="lead">勘ではなく、物理。希望ではなく、確率。</p>
+  <div class="engines">
+    <div class="engine">
+      <div class="icn">🔬</div>
+      <div class="name">AGRO-PHYSICS</div>
+      <h3>栽培物理エンジン</h3>
+      <p>土壌×気象×日射量から「育つもの」を診断。Wageningen大学のYield Gap理論で<strong class="yellow">理論最大収量</strong>を算出。</p>
+    </div>
+    <div class="engine">
+      <div class="icn">📊</div>
+      <div class="name">BIO-ECONOMIC</div>
+      <h3>経営経済エンジン</h3>
+      <p>市場価格×農研機構の労働データで<strong class="yellow">「時給換算でいくら残るか」</strong>を計算。SERFモデルで倒産確率まで加味。</p>
+    </div>
+    <div class="engine">
+      <div class="icn">🧠</div>
+      <div class="name">BEHAVIORAL NUDGE</div>
+      <h3>行動変容エンジン</h3>
+      <p>MITのナッジ理論を応用。「分かっているけど変えられない」農家の<strong class="yellow">背中をそっと押す</strong>。</p>
+    </div>
+  </div>
+  <div class="footer"><span class="brand">APE</span><span>04 / 12</span></div>
+</section>
+
+<!-- 05 DEMO -->
+<section class="slide">
+  <div class="eyebrow">PROTOTYPE</div>
+  <h2>30秒で、<span class="accent">儲かる作物</span>が分かる</h2>
+  <div class="grid-3">
+    <div class="card"><div class="num">1</div><h3>土壌診断</h3><p>地図上で畑を選ぶ。土壌・気象データから「育つ作物」をスコア化。</p></div>
+    <div class="card"><div class="num">2</div><h3>収益シミュレーション</h3><p>作物を選ぶと、年間利益・労働時間・倒産確率を即時計算。</p></div>
+    <div class="card"><div class="num">3</div><h3>販路マッチング</h3><p>半径数kmの飲食店・実需者が今欲しい作物を地図で可視化。</p></div>
+  </div>
+  <div class="band"><p>すでに<strong class="accent">Python/Streamlit + Next.js</strong>で稼働中。実顧客と検証フェーズ。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>05 / 12</span></div>
+</section>
+
+<!-- 06 WHY NOW -->
+<section class="slide">
+  <div class="eyebrow">WHY NOW</div>
+  <h2>追い風が、<span class="accent">一斉に</span>吹いている</h2>
+  <div class="grid-3">
+    <div class="card"><h3>🌏 気候変動</h3><p>2010年比、平均気温+1.5℃。<span class="yellow">「いつもの作物」が育たなくなった</span>。</p></div>
+    <div class="card"><h3>🧑‍🌾 大量離農</h3><p>農業者の平均年齢68歳。今後10年で半減。<span class="yellow">「次世代の指針」</span>が要る。</p></div>
+    <div class="card"><h3>📡 データ解放</h3><p>農研機構WAGRI、衛星データ、気象API。<span class="yellow">公的データが繋がる時代</span>。</p></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v">¥6.5兆</div><div class="l">日本の農業市場規模</div></div>
+    <div class="stat"><div class="v">70%</div><div class="l">新規就農者の5年内離農率</div></div>
+    <div class="stat"><div class="v">5.4万人</div><div class="l">年間新規就農者（潜在顧客）</div></div>
+  </div>
+  <div class="footer"><span class="brand">APE</span><span>06 / 12</span></div>
+</section>
+
+<!-- 07 COMPETITION -->
+<section class="slide">
+  <div class="eyebrow">DIFFERENTIATION</div>
+  <h2>なぜAPEは<span class="accent">勝てる</span>のか</h2>
+  <table class="compare">
+    <tr><th></th><th>既存アグリテック<br><span class="muted" style="font-size:22px;">アグリノート / Sagri / NARO</span></th><th>APE</th></tr>
+    <tr><td class="label">タイミング</td><td>野菜ができた「後」</td><td class="us">作る「前」の意思決定</td></tr>
+    <tr><td class="label">提供価値</td><td>記録・管理・マッチング</td><td class="us">勝算（利益）の可視化</td></tr>
+    <tr><td class="label">透明性</td><td>ブラックボックス（AI任せ）</td><td class="us">ホワイトボックス（物理モデル）</td></tr>
+    <tr><td class="label">ターゲット</td><td>既存の中〜大規模農家</td><td class="us">新規就農者・小規模農家</td></tr>
+    <tr><td class="label">金融連携</td><td>事後の融資審査</td><td class="us">事業計画書を自動生成→融資</td></tr>
+  </table>
+  <div class="footer"><span class="brand">APE</span><span>07 / 12</span></div>
+</section>
+
+<!-- 08 BUSINESS MODEL -->
+<section class="slide">
+  <div class="eyebrow">BUSINESS MODEL</div>
+  <h2>3層の<span class="accent">収益エンジン</span></h2>
+  <div class="grid-3">
+    <div class="card">
+      <div class="num">B</div>
+      <h3>ToB / SaaS</h3>
+      <p style="color:var(--text);font-size:32px;">月額 <span class="yellow">¥2,980〜</span></p>
+      <p>新規就農者・小規模農家向け。土壌診断＋収益シミュレーション＋販路マッチング。</p>
+    </div>
+    <div class="card">
+      <div class="num">G</div>
+      <h3>ToG / 自治体</h3>
+      <p style="color:var(--text);font-size:32px;">年額 <span class="yellow">¥120万〜</span></p>
+      <p>耕作放棄地の可視化、新規就農者誘致、地域戦略レポート。飛騨地域で実証中。</p>
+    </div>
+    <div class="card">
+      <div class="num">M</div>
+      <h3>マッチング手数料</h3>
+      <p style="color:var(--text);font-size:32px;">取引額 <span class="yellow">3%</span></p>
+      <p>地域内の飲食店・加工業者と農家を直接接続。物流費を削減し、農家手取りを最大化。</p>
+    </div>
+  </div>
+  <div class="band"><p>3年でARR <strong class="accent">5億円</strong>を目標。自治体導入×SaaS課金の二段ロケットで黒字化。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>08 / 12</span></div>
+</section>
+
+<!-- 09 TRACTION -->
+<section class="slide">
+  <div class="eyebrow">TRACTION</div>
+  <h2>すでに、<span class="accent">動き始めている</span></h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>✅ プロダクト</h3>
+      <p style="font-size:30px; color:var(--text);">
+        • Next.js 15 + Supabase ベースの本番Webアプリ<br>
+        • 18ページのダッシュボードを実装済み<br>
+        • 飛騨地域の実圃場データで検証中<br>
+        • Python/Streamlit版で計算ロジックを実証
+      </p>
+    </div>
+    <div class="card">
+      <h3>✅ 顧客・パートナー</h3>
+      <p style="font-size:30px; color:var(--text);">
+        • 飛騨地域の農家・普及員と協働<br>
+        • 青果市場の現場ネットワーク<br>
+        • 自治体との実証実験を協議中<br>
+        • 銀行融資審査向け事業計画書の試作
+      </p>
+    </div>
+  </div>
+  <div class="band"><p>論文20本以上の<strong class="accent">物理モデル</strong>を実装。技術の中身がある、ただの「AI」ではない。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>09 / 12</span></div>
+</section>
+
+<!-- 10 ROADMAP -->
+<section class="slide">
+  <div class="eyebrow">ROADMAP</div>
+  <h2>3年で、<span class="accent">日本の作付意思決定</span>を変える</h2>
+  <div class="roadmap">
+    <div class="phase"><div class="y">2026 Q2</div><h4>飛騨で実証</h4><p>農家10戸、自治体1件、ARPU検証。MVP完成。</p></div>
+    <div class="phase"><div class="y">2026 Q4</div><h4>地方拡大</h4><p>3地域に展開。シードラウンド調達。ToG契約3件。</p></div>
+    <div class="phase"><div class="y">2027</div><h4>全国SaaS</h4><p>就農相談会×銀行連携。会員1,000戸。ARR 1億円。</p></div>
+    <div class="phase"><div class="y">2028</div><h4>意思決定OS</h4><p>農家10,000戸＋自治体50件。<span class="yellow">「次に何を作るか」を決めるOS</span>に。</p></div>
+  </div>
+  <div class="footer"><span class="brand">APE</span><span>10 / 12</span></div>
+</section>
+
+<!-- 11 VISION -->
+<section class="slide">
+  <div class="eyebrow">VISION</div>
+  <h2>農業を、<span class="accent">「博打」</span>から<br><span class="yellow">「経営」</span>へ。</h2>
+  <p class="lead" style="margin-top:24px;">
+    儲かる作物は、固定されていない。<br>
+    気候も、市場も、毎年変わる。<br>
+    だから僕らは、<span class="accent">未来のデータ</span>で、毎年答えを更新し続ける。
+  </p>
+  <div class="band"><p>「過去のしがらみではなく、未来のデータで経営を決められる」<br>そんな農業を、当たり前にする。</p></div>
+  <div class="footer"><span class="brand">APE</span><span>11 / 12</span></div>
+</section>
+
+<!-- 12 CTA -->
+<section class="slide cta">
+  <div class="eyebrow">FOR NONTITLE</div>
+  <h1><span class="accent">タイトル</span>はいらない。<br>結果で、農業を変える。</h1>
+  <div class="pill">APE — Agri-Profit Engine</div>
+  <div class="who">
+    洞口 太樹 / Taiki Horaguchi<br>
+    トマト農家 → 青果市場 → エンジニア起業家<br>
+    現場で痛みを知り、技術で解く人間です。
+  </div>
+  <div class="footer"><span class="brand">APE</span><span>12 / 12</span></div>
+</section>
+
+</body>
+</html>
