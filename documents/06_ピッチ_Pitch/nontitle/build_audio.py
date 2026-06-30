@@ -40,7 +40,7 @@ def wav_to_mp3(wav: Path, mp3: Path) -> None:
 
 def main() -> None:
     data = json.loads((ROOT / "narration.json").read_text(encoding="utf-8"))
-    speed = float(data.get("speed", 1.05))
+    speed = float(data.get("speed", 1.2))
     half_tone = float(data.get("half_tone", -1.0))  # 少し低音で落ち着いた声に
     durations = {}
     for entry in data["scripts"]:

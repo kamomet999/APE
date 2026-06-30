@@ -11,9 +11,12 @@ OUT_DIR="output"
 mkdir -p "$OUT_DIR"
 
 # スライド毎の余白（前後の無音マージン秒）。耳と目をリラックスさせる。
-LEAD=0.5
-TAIL=0.8
+LEAD=0.15
+TAIL=0.25
 FPS=30
+# h264 CRF（数字が大きいほど低ビットレート・小サイズ）と AAC ビットレート。
+CRF=26
+AAC_BR=96k
 
 concat_list="$(mktemp)"
 trap 'rm -f "$concat_list"' EXIT
@@ -40,8 +43,8 @@ for i in $(seq -w 1 12); do
     -f lavfi -t "$TAIL" -i "anullsrc=r=48000:cl=stereo" \
     -filter_complex "[1:a][2:a][3:a]concat=n=3:v=0:a=1[a];[0:v]scale=1920:1080,format=yuv420p[v]" \
     -map "[v]" -map "[a]" \
-    -c:v libx264 -pix_fmt yuv420p -r "$FPS" -tune stillimage -preset medium -crf 20 \
-    -c:a aac -ar 48000 -b:a 192k \
+    -c:v libx264 -pix_fmt yuv420p -r "$FPS" -tune stillimage -preset slow -crf "$CRF" \
+    -c:a aac -ar 44100 -b:a "$AAC_BR" -ac 1 \
     -movflags +faststart -shortest \
     "$seg"
 

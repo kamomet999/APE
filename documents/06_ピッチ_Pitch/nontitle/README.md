@@ -7,7 +7,7 @@
 | ファイル | 内容 |
 |---|---|
 | `index.html` | 12枚のHTMLスライド（1920×1080）。ブラウザでそのまま閲覧可。 |
-| `output/APE_nontitle_pitch_voiced.mp4` | **ナレーション付きプレゼン動画**（h264+AAC / 1920×1080 / 30fps / 約5分7秒）。 |
+| `output/APE_nontitle_pitch_voiced.mp4` | **ナレーション付きプレゼン動画**（h264+AAC / 1920×1080 / 30fps / **約1分58秒 / 4.0MB**）。 |
 | `output/APE_nontitle_pitch.mp4` | 無音版（h264 / 1920×1080 / 30fps / 約2分56秒, クロスフェード付き）。 |
 | `frames/frame_NN.png` | 各スライドのPNG静止画。サムネ・SNS切り出し用。 |
 | `audio/audio_NN.mp3` | スライド毎の日本語ナレーション音声（pyopenjtalk 合成）。 |
