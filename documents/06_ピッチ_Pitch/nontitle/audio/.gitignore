@@ -1,0 +1,2 @@
+# 中間WAVは生成物なのでGit管理外（必要なら build_audio.py で再生成）
+*.wav
