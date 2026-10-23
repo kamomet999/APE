@@ -1,10 +1,11 @@
-import { getMessages } from 'next-intl/server'
-import { i18n } from '@/../../i18n.config'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { NextIntlClientProvider } from 'next-intl'
+import { routing } from '@/i18n/routing'
 
 export function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ locale }))
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export default async function LocaleLayout({
@@ -15,14 +16,17 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const messages = await getMessages()
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+
+  // 静的レンダリングを有効にする (next-intl v4)
+  setRequestLocale(locale)
 
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
   )
