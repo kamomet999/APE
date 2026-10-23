@@ -32,7 +32,7 @@ export default function EmergencyPage() {
   const t = useTranslations()
 
   const handleCall = (phone: string) => {
-    window.location.href = `tel:${phone}`
+    window.location.assign(`tel:${phone}`)
   }
 
   return (

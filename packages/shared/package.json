@@ -34,8 +34,8 @@
     "clean": "rm -rf dist node_modules"
   },
   "devDependencies": {
-    "tsup": "^8.3.0",
-    "typescript": "^5.7.0"
+    "tsup": "^9.0.0",
+    "typescript": "^5.9.3"
   },
   "private": true
 }

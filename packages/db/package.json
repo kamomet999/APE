@@ -16,11 +16,11 @@
     "generate-types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/database.types.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.47.0"
+    "@supabase/supabase-js": "^2.118.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "@ape/shared": "workspace:*"
